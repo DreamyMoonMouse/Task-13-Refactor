@@ -9,7 +9,7 @@ public class BulletShooter : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private float _shootInterval;
     
-    void Start() 
+    private void Start() 
     {
         StartCoroutine(ShootRoutine());
     }
@@ -17,13 +17,15 @@ public class BulletShooter : MonoBehaviour
     private IEnumerator ShootRoutine()
     {
         bool isWorking = true;
+        WaitForSeconds waitForShootInterval = new WaitForSeconds(_shootInterval);
         
         while (isWorking)
         {
             Shoot();
-            yield return new WaitForSeconds(_shootInterval);
+            yield return waitForShootInterval;
         }
     }
+    
     private void Shoot()
     {
         Vector3 direction = (_target.position - transform.position).normalized;
